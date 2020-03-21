@@ -71,10 +71,17 @@ def create_dummy_df():
 	df['Info'] = ['Current Price', 'Total Shares', 'Buy Price', 'Investment', 'Returns', 'Net']
 	df.index = df.Info
 	return df
+
+##############################################################################
+
+
 data = create_dummy_df()
 
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+server = app.server
+app.title = 'Stock Analysis | ParthikB'
+    
 
 app.layout = html.Div([
     # The memory store reverts to the default on every page refresh
@@ -154,6 +161,5 @@ def on_data(ts, data):
 
 
 if __name__ == '__main__':
-    app.title = 'Stock Analysis | ParthikB'
-    server = app.server
+
     app.run_server(debug=True)
