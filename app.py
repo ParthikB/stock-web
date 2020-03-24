@@ -16,8 +16,8 @@ def update_val(data, security):
     if security == 'XRP':
 
         API = os.environ.get('BINANCE_API')
-	KEY = os.environ.get('BINANCE_SECRET_KEY')
-	
+        KEY = os.environ.get('BINANCE_SECRET_KEY')
+    
         client = Client(API, KEY)
 
         # Getting the average price of the COIN in $ and then converting into INR
@@ -68,10 +68,10 @@ def update_val(data, security):
 # df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/solar.csv')
 
 def create_dummy_df():
-	df = pd.DataFrame(columns=['Info','YESBANK.NS', 'XRP'])
-	df['Info'] = ['Current Price', 'Total Shares', 'Buy Price', 'Investment', 'Returns', 'Net']
-	df.index = df.Info
-	return df
+    df = pd.DataFrame(columns=['Info','YESBANK.NS', 'XRP'])
+    df['Info'] = ['Current Price', 'Total Shares', 'Buy Price', 'Investment', 'Returns', 'Net']
+    df.index = df.Info
+    return df
 
 ##############################################################################
 
@@ -89,28 +89,28 @@ app.layout = html.Div([
     dcc.Store(id='database', storage_type='session'),
 
     html.Div([
-    			html.H2('Stock Analysis',
-		                style={'float': 'left',
-		                       }),
+                html.H2('Stock Analysis',
+                        style={'float': 'left',
+                               }),
 
-				dash_table.DataTable(
-				    id='table',
-				    columns=[{"name": i, "id": i} for i in data.columns],
-				    # data=data.to_dict('records'),
-				),
-			
-			    html.Button('Update', id='button', 
-			    			style={'width' : '100%', 'height':'25%'}),
+                dash_table.DataTable(
+                    id='table',
+                    columns=[{"name": i, "id": i} for i in data.columns],
+                    # data=data.to_dict('records'),
+                ),
+            
+                html.Button('Update', id='button', 
+                            style={'width' : '100%', 'height':'25%'}),
 
-			    html.Div(id='output',
-             			 children='Net : Great (one day)',
-			    		 )
+                html.Div(id='output',
+                         children='Net : Great (one day)',
+                         )
 
-			    
+                
 
-						],
-				style={'font-size': '140%'},
-				)
+                        ],
+                style={'font-size': '140%'},
+                )
 ])
 
 store = 'database'
@@ -125,7 +125,7 @@ def on_click(n_clicks, data):
     data = create_dummy_df()
     
     for security in ['YESBANK.NS', 'XRP']:
-    	data = update_val(data, security)
+        data = update_val(data, security)
 
     data = data.to_dict('records')
     return data
@@ -151,12 +151,12 @@ def on_data(ts, data):
 
     net_worth = 0
     for i in data:
-    	if i['Info'] == 'Net':
-    		for net in i.values():
-    			try:
-    				net_worth += float(net)
-    			except:
-    				pass
+        if i['Info'] == 'Net':
+            for net in i.values():
+                try:
+                    net_worth += float(net)
+                except:
+                    pass
 
     return f'Net : {round(net_worth, 2)}'
 
