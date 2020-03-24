@@ -7,17 +7,18 @@ import dash_core_components as dcc
 from dash.dependencies import Output, Input, State
 from dash.exceptions import PreventUpdate
 
-import pandas as pd
+import pandas as pd, os
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 def update_val(data, security):
     
     if security == 'XRP':
-        api_key    = 'jfdgMTk4LEnYl54Lto18zWAvyYS2GEOfvfwfnifaQawFE9TIMUlZnjCPqubWKWoP'
-        secret_key = 'H0UfJS8hCj13a3StI3IgZ46C0AfkaUS6zwf7s0bK8bDv1cqP8x49kHe4M4phVfnI'
-        
-        client = Client(api_key, secret_key)
+
+        API = os.environ.get('BINANCE_API')
+	KEY = os.environ.get('BINANCE_SECRET_KEY')
+	
+        client = Client(API, KEY)
 
         # Getting the average price of the COIN in $ and then converting into INR
         cur_price    = client.get_avg_price(symbol=f'{security}USDT')
