@@ -16,7 +16,7 @@ def update_val(data, security):
     if security == 'XRP':
 
         API = os.environ.get('BINANCE_API')
-	KEY = os.environ.get('BINANCE_SECRET_KEY')
+		KEY = os.environ.get('BINANCE_SECRET_KEY')
 	
         client = Client(API, KEY)
 
